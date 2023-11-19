@@ -1,90 +1,243 @@
-.App {
-  text-align: center;
+html,
+body,
+.root {
+  height: 100%;
+}
+body {
+  line-height: 1.5;
+}
+body,
+.app {
+  background: white;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  font-size: 40px;
+  font-weight: 500;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h2 {
+  font-size: 30px;
+  font-weight: 500;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgb(90, 88, 88);
 }
 
-.App-link {
-  color: #61dafb;
+select,
+input {
+  width: 30%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* Login */
 
-
-
-.Login {
-  display: flex;
+.login {
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f0f0f0; /* Set your desired background color */
+  background-color: white;
 }
 
 .login-container {
   text-align: center;
+  padding: 10px;
   background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-image {
+  height: 400px;
 }
 
 .login-form {
   margin-top: 20px;
 }
 
-.input-group {
+.login-input-group {
   margin-bottom: 15px;
 }
 
-label {
-  display: block;
+.loginBtn {
+  margin-top: 16px;
+}
+
+/* Menu */
+
+.top-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+}
+
+.menu-items {
+  display: flex;
+  padding-bottom: 2px;
+}
+
+.menu-item {
+  margin-right: 30px;
+  font-size: 23px;
+  text-decoration: none;
+  color: #000;
+}
+
+.selected {
+  border-bottom: 2px solid black;
   font-weight: bold;
 }
 
-select,
-input {
+.user-info {
+  display: flex;
+  justify-content: right;
+  font-size: 23px;
+}
+
+/* Dashboard */
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.questions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.questions-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 2px;
+  margin: 30px;
+  align-items: center;
+  width: 50%;
+  border: 1px solid #b8b8b8;
+}
+
+.qc-title {
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 500;
+  margin: 5px;
+}
+
+.divider {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
+  height: 1px;
+  background-color: #b8b8b8ac;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  margin: 10px;
+  align-items: center;
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #b8b8b8;
+  transition: transform 0.2s ease-in-out;
+  margin: 10px;
+  width: 250px;
+  height: auto;
+  align-items: center;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-title {
+  font-size: 16px;
+  margin-bottom: 1px;
+  font-weight: 500;
+}
+
+.card-content {
+  font-size: 1rem;
+  color: #666666;
+}
+
+.card-button {
+  border: 1px solid rgb(10, 169, 108);
+  background-color: white;
+  width: 90%;
+  padding: 5px;
+  margin: 10px;
+  color: rgb(10, 169, 108);
+}
+
+.card-timestamp {
+  font-size: 12px;
+  font-weight: 200;
+  margin-bottom: 10px;
+  color: #b8b8b8;
+}
+
+/* Leaderboard */
+.excel-table th,
+.excel-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.excel-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.excel-table-container {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  align-items: flex-start;
+  padding-top: 20px;
+}
+
+.table-wrapper {
+  width: 80%;
+  overflow-x: auto;
+}
+
+.excel-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* New Question */
+.new-questionBtn{
+  background-color: #ebebeb;
+  font-weight: 700;
+  margin: 15px;
+  width: 75px;
+  border:none;
+  padding: 12px;
   border-radius: 5px;
 }
 
-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
+.new-question-input{
+  width: 70%;
 }
