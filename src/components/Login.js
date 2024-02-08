@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import loginImage from "../images/log_in.png";
 import { useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
+import { handleLogin } from "../actions/authedUser";
 
-function Login() {
-  // Dummy user data for the dropdown user-list
-  const users = [
-    { id: 1, name: "Alexandros" },
-    { id: 2, name: "Stavros" },
-    { id: 3, name: "Lena" },
-  ];
-
+const Login = (props) => {
   const [selectedUser, setSelectedUser] = useState("");
   const navigate = useNavigate();
 
@@ -17,8 +12,9 @@ function Login() {
     setSelectedUser(e.target.value);
   };
 
-  const handleLogin = (e) => {
+  const handleLoginButton = (e) => {
     e.preventDefault();
+    props.dispatch(handleLogin(selectedUser));
     navigate("/dashboard");
   };
 
@@ -35,9 +31,9 @@ function Login() {
           <div className="login-input-group">
             <select value={selectedUser} onChange={handleUserChange}>
               <option value="">Select User</option>
-              {users.map((user) => (
-                <option key={user.id} value={user.name}>
-                  {user.name}
+              {Object.keys(props.users).map((user) => (
+                <option key={user} value={user}>
+                  {user}
                 </option>
               ))}
             </select>
@@ -45,7 +41,7 @@ function Login() {
 
           <button
             className="loginBtn"
-            onClick={handleLogin}
+            onClick={handleLoginButton}
             disabled={!selectedUser}
           >
             Login
@@ -54,6 +50,10 @@ function Login() {
       </div>
     </div>
   );
-}
+};
 
-export default Login;
+const mapStateToProps = ({ users }) => ({
+  users,
+});
+
+export default connect(mapStateToProps)(Login);

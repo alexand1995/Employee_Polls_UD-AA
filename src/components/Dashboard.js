@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Menu from "./Menu";
 import QuestionCard from "./QuestionCard";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import authedUser from "../reducers/authedUser";
 
-function Dashboard(props) {
+const Dashboard = (props) => {
+  const navigate = useNavigate();
+
+  const handleSelectQuestion = (e) => {
+    e.preventDefault();
+  };
+
+  const answeredQ = Object.keys(props.answers);
+  const unansweredQ = Object.keys(props.questions).filter(
+    (id) => !answeredQ.includes(id)
+  );
   return (
     <div className="dashboard">
       <Menu />
@@ -12,11 +25,11 @@ function Dashboard(props) {
 
           <div className="divider"></div>
           <div className="card-container">
-            <QuestionCard author="mtsamis" timestamp="4:11 PM ! 11/23/2021" />
-            <QuestionCard author="mtsamis" timestamp="4:11 PM ! 11/23/2021" />
-            <QuestionCard author="mtsamis" timestamp="4:11 PM ! 11/23/2021" />
-            <QuestionCard author="mtsamis" timestamp="4:11 PM ! 11/23/2021" />
-            <QuestionCard author="mtsamis" timestamp="4:11 PM ! 11/23/2021" />
+            {unansweredQ.map((qid) => (
+              <div key={qid}>
+                <QuestionCard qid={qid} />
+              </div>
+            ))}
           </div>
         </div>
         <div className="questions-container">
@@ -24,13 +37,25 @@ function Dashboard(props) {
 
           <div className="divider"></div>
           <div className="card-container">
-            <QuestionCard author="mtsamis" timestamp="4:11 PM ! 11/23/2021" />
-            <QuestionCard author="mtsamis" timestamp="4:11 PM ! 11/23/2021" />
+            {answeredQ.map((qid) => (
+              <div key={qid}>
+                <QuestionCard qid={qid} />
+              </div>
+            ))}
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default Dashboard;
+const mapStateToProps = ({ authedUser, users, questions }) => {
+  const answers = users[authedUser].answers;
+  return {
+    answers,
+    users,
+    questions,
+  };
+};
+
+export default connect(mapStateToProps)(Dashboard);

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { connect } from "react-redux";
 
 function Menu(props) {
   const location = useLocation();
@@ -39,8 +40,19 @@ function Menu(props) {
         </Link>
       </div>
       <div className="user-info">
-        <div className="menu-item">User</div>
-        <button className="menu-item" onClick={handleLogout}>
+        <div className={`avatar-container small`}>
+          {props.users[props.authedUser].avatarURL !== undefined ? (
+            <img
+              className="avatar-image"
+              src={props.users[props.authedUser].avatarURL}
+              alt={props.authedUser}
+            />
+          ) : (
+            <></>
+          )}
+        </div>
+        <div className="menu-item">{props.authedUser}</div>
+        <button className="menu-item-button" onClick={handleLogout}>
           Logout
         </button>
       </div>
@@ -48,4 +60,11 @@ function Menu(props) {
   );
 }
 
-export default Menu;
+const mapStateToProps = ({ authedUser, users }) => {
+  return {
+    authedUser,
+    users,
+  };
+};
+
+export default connect(mapStateToProps)(Menu);

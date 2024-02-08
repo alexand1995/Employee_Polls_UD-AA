@@ -2,8 +2,10 @@ import React from "react";
 import { useState } from "react";
 import Menu from "./Menu";
 import { useNavigate } from "react-router-dom";
+import { handleAddQuestion } from "../actions/questions";
+import { connect } from "react-redux";
 
-function NewQuestion(props) {
+function NewQuestion({ dispatch, id }) {
   const navigate = useNavigate();
 
   const [input1, setInput1] = useState("");
@@ -20,8 +22,16 @@ function NewQuestion(props) {
     setIsButtonDisabled(e.target.value === "" || input1 === "");
   };
 
-  const handleButtonClick = () => {
-    console.log("Button Clicked!");
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    dispatch(handleAddQuestion(input1, input2));
+
+    setInput1("");
+    setInput2("");
+
+    if (!id) {
+      navigate("/dashboard");
+    }
   };
 
   return (
@@ -64,4 +74,4 @@ function NewQuestion(props) {
   );
 }
 
-export default NewQuestion;
+export default connect()(NewQuestion);
