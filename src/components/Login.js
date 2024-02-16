@@ -28,8 +28,8 @@ const Login = (props) => {
           <h2>Log In</h2>
           <h3>User</h3>
 
-          <div className="login-input-group">
-            <select value={selectedUser} onChange={handleUserChange}>
+          <div className="login-input-group" data-testid="username_dropdown">
+            <select value={selectedUser} onChange={handleUserChange} data-testid="select-user">
               <option value="">Select User</option>
               {Object.keys(props.users).map((user) => (
                 <option key={user} value={user}>
@@ -43,6 +43,7 @@ const Login = (props) => {
             className="loginBtn"
             onClick={handleLoginButton}
             disabled={!selectedUser}
+            data-testid="login_button"
           >
             Login
           </button>

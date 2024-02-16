@@ -65,6 +65,7 @@ function NewQuestion({ dispatch, id }) {
             className="new-questionBtn"
             onClick={handleButtonClick}
             disabled={isButtonDisabled}
+            data-testid="newq_button"
           >
             Submit
           </button>
