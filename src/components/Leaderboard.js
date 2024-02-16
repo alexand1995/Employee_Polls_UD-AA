@@ -28,10 +28,11 @@ function Leaderboard(props) {
                       />
                     ) : (
                       <></>
-                    )}{props.users[uid].name}
+                    )}
+                    {props.users[uid].name}
                   </td>
-                  <td>{Object.keys(props.users[uid].answers).length}</td>
-                  <td>{props.users[uid].questions.length}</td>
+                  <td>{props.questionsByUser[uid]?.answered || 0}</td>
+                  <td>{props.questionsByUser[uid]?.created || 0}</td>
                 </tr>
               </tbody>
             ))}
@@ -42,17 +43,29 @@ function Leaderboard(props) {
   );
 }
 
-const mapStateToProps = ({ users }) => {
-  const sortedUsers = Object.values(users).sort((a, b) => {
-    const calculateTotal = (user) =>
-      Object.keys(user.answers).length + user.questions.length;
-    const aTotal = calculateTotal(a);
-    const bTotal = calculateTotal(b);
-    return bTotal - aTotal;
+const mapStateToProps = ({ users, questions }) => {
+  const questionsByUser = Object.values(questions).reduce((acc, question) => {
+    const author = question.author;
+    if (acc[author]) {
+      acc[author].created += 1;
+    } else {
+      acc[author] = { created: 1, answered: 0 };
+    }
+    return acc;
+  }, {});
+
+  Object.values(users).forEach((user) => {
+    const answered = Object.keys(user.answers).length;
+    if (questionsByUser[user.id]) {
+      questionsByUser[user.id].answered = answered;
+    } else {
+      questionsByUser[user.id] = { created: 0, answered };
+    }
   });
 
   return {
-    users: sortedUsers,
+    users,
+    questionsByUser,
   };
 };
 
