@@ -1,6 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import Menu from "./Menu";
 import { handleAddAnswer } from "../actions/questions";
 
@@ -17,6 +22,12 @@ const withRouter = (Component) => {
 
 const Question = (props) => {
   const navigate = useNavigate();
+  if (!props.question) {
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('redirectTo','login');
+    return <Navigate to="/*" />;
+  }
+
   const { question, hasAnswered, optionAnswer, users, authedUser } = props;
   const { optionOne, optionTwo } = question;
   const selectedOption = hasAnswered ? optionAnswer : null;

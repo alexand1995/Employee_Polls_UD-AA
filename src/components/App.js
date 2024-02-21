@@ -12,66 +12,59 @@ import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
 import ProtectedRoute from "./ProtectedRoute";
 
-function App(props) {
+function App({ dispatch, loggedIn }) {
   useEffect(() => {
-    props.dispatch(handleInitialData());
-  }, []);
-
+    dispatch(handleInitialData());
+  });
+  
   return (
-    <Fragment>
-      <div className="container">
-        {!props.loggedOut && (
-          <div>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" exact element={<Login />} />
-                <Route
-                  path="/dashboard"
-                  exact
-                  element={
-                    <ProtectedRoute>
-                      <Dashboard />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/leaderboard"
-                  exact
-                  element={
-                    <ProtectedRoute>
-                      <Leaderboard />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/newQuestion"
-                  exact
-                  element={
-                    <ProtectedRoute>
-                      <NewQuestion />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/question/:id"
-                  element={
-                    <ProtectedRoute>
-                      <Question />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="*" exact element={<PageNotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </div>
-        )}
-      </div>
-    </Fragment>
+    <div className="App">
+      {loggedIn}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" exact element={<Login />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/leaderboard"
+            exact
+            element={
+              <ProtectedRoute>
+                <Leaderboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/questions/:id"
+            element={
+              <ProtectedRoute>
+                <Question />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/newQuestion"
+            exact
+            element={
+              <ProtectedRoute>
+                <NewQuestion />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/*" exact element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
-
 const mapStateToProps = ({ authedUser }) => ({
-  loggedOut: authedUser === null,
+  loggedIn: !!authedUser,
 });
 
 export default connect(mapStateToProps)(App);

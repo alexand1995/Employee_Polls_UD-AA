@@ -3,10 +3,18 @@ import loginImage from "../images/log_in.png";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { handleLogin } from "../actions/authedUser";
+import {Navigate} from "react-router-dom";
 
 const Login = (props) => {
   const [selectedUser, setSelectedUser] = useState("");
   const navigate = useNavigate();
+
+  if (props.loggedIn) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectUrl = urlParams.get('redirectTo');
+    console.log(redirectUrl)
+    return <Navigate to={redirectUrl ? redirectUrl : "/"}/>;
+  }
 
   const handleUserChange = (e) => {
     setSelectedUser(e.target.value);
@@ -15,7 +23,6 @@ const Login = (props) => {
   const handleLoginButton = (e) => {
     e.preventDefault();
     props.dispatch(handleLogin(selectedUser));
-    navigate("/dashboard");
   };
 
   return (
@@ -53,7 +60,8 @@ const Login = (props) => {
   );
 };
 
-const mapStateToProps = ({ users }) => ({
+const mapStateToProps = ({ authedUser,users }) => ({
+  loggedIn: !!authedUser,
   users,
 });
 

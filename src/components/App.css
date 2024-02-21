@@ -336,3 +336,33 @@ c .option button.selected {
 .optionButtonSelected {
   background-color: rgb(0, 193, 71);
 }
+
+.tabs {
+  display: flex;
+  justify-content: center;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px 5px;
+  background-color: #a4a4a4;
+}
+
+.tab:last-child {
+  border-radius: 0 0 5px 5px;
+}
+
+.tab.active {
+  background-color: #fff;
+}
+
+.tab-content {
+  display: none;
+  padding: 20px;
+}
+
+.tab-content.active {
+  display: block;
+}

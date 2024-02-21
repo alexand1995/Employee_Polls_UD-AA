@@ -3,45 +3,55 @@ import Menu from "./Menu";
 import QuestionCard from "./QuestionCard";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import authedUser from "../reducers/authedUser";
 
 const Dashboard = (props) => {
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("unanswered");
 
-  const handleSelectQuestion = (e) => {
-    e.preventDefault();
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
   };
 
   const answeredQ = Object.keys(props.answers);
   const unansweredQ = Object.keys(props.questions).filter(
     (id) => !answeredQ.includes(id)
   );
+
   return (
     <div className="dashboard">
       <Menu />
+      <div className="tabs">
+        <div
+          className={`tab ${activeTab === "unanswered" ? "active" : ""}`}
+          onClick={() => handleTabChange("unanswered")}
+        >
+          Unanswered
+        </div>
+        <div
+          className={`tab ${activeTab === "answered" ? "active" : ""}`}
+          onClick={() => handleTabChange("answered")}
+        >
+          Answered
+        </div>
+      </div>
       <div className="questions">
         <div className="questions-container">
-          <div className="qc-title">New Questions</div>
-
-          <div className="divider"></div>
-          <div className="card-container">
-            {unansweredQ.map((qid) => (
-              <div key={qid}>
-                <QuestionCard qid={qid} />
-              </div>
-            ))}
+          <div className="qc-title">
+            {activeTab === "unanswered" ? "Unanswered Questions" : "Answered Questions"}
           </div>
-        </div>
-        <div className="questions-container">
-          <div className="qc-title">Done</div>
-
           <div className="divider"></div>
           <div className="card-container">
-            {answeredQ.map((qid) => (
-              <div key={qid}>
-                <QuestionCard qid={qid} />
-              </div>
-            ))}
+            {activeTab === "unanswered"
+              ? unansweredQ.map((qid) => (
+                  <div key={qid}>
+                    <QuestionCard qid={qid} />
+                  </div>
+                ))
+              : answeredQ.map((qid) => (
+                  <div key={qid}>
+                    <QuestionCard qid={qid} />
+                  </div>
+                ))}
           </div>
         </div>
       </div>
