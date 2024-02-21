@@ -22,7 +22,7 @@ function App({ dispatch, loggedIn }) {
       {loggedIn}
       <BrowserRouter>
         <Routes>
-          <Route path="/login" exact element={<Login />} />
+          <Route path="/" exact element={<Login />} />
           <Route
             path="/dashboard"
             element={

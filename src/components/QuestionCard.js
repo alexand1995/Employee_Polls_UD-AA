@@ -7,7 +7,7 @@ const QuestionCard = (props) => {
   const navigate = useNavigate();
 
   const handleQuestionClick = () => {
-    navigate(`/question/${props.question.id}`);
+    navigate(`/questions/${props.question.id}`);
   };
 
   return (

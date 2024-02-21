@@ -47,7 +47,7 @@ const Question = (props) => {
     const answer = e.target.value;
     props.dispatch(handleAddAnswer(props.question.id, answer));
 
-    navigate("/dashboard");
+    //navigate("/dashboard");
     if (question === null) {
       return <p>This Question doesn't exist</p>;
     }

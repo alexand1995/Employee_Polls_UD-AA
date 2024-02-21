@@ -13,7 +13,7 @@ const Login = (props) => {
     const urlParams = new URLSearchParams(window.location.search);
     const redirectUrl = urlParams.get('redirectTo');
     console.log(redirectUrl)
-    return <Navigate to={redirectUrl ? redirectUrl : "/"}/>;
+    return <Navigate to={redirectUrl ? redirectUrl : "/dashboard"}/>;
   }
 
   const handleUserChange = (e) => {

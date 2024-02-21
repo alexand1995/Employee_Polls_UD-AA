@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
+import { logoutAuthedUser } from "../actions/authedUser";
 
 function Menu(props) {
   const location = useLocation();
@@ -8,7 +9,7 @@ function Menu(props) {
   const navigate = useNavigate();
 
   const handleLogout = (e) => {
-    navigate("/");
+    props.dispatch(logoutAuthedUser());
   };
 
   return (

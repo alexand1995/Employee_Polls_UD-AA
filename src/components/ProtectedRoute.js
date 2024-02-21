@@ -3,7 +3,8 @@ import {connect} from "react-redux";
 
 const ProtectedRoute = ({children, loggedIn}) => {
     const redirectUrl = window.location.href.toString().split(window.location.host)[1];
-    return loggedIn ? children : <Navigate to={`/login?redirectTo=${redirectUrl}`}/>;
+    console.log(redirectUrl)
+    return loggedIn ? children : <Navigate to={`/?redirectTo=${redirectUrl}`}/>;
 };
 
 const mapStateToProps = ({authedUser}) => ({
