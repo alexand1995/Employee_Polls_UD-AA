@@ -5,7 +5,7 @@ function PageNotFound(props) {
   return (
     <div>
       <h1>No question with that ID was found.</h1>
-      {/* <Link to="/login">Back To Home Page</Link> */}
+      <Link to="/dashboard">Back To Dashboard</Link>
     </div>
   );
 }
