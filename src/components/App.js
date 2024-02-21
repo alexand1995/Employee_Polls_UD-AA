@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App(props) {
   useEffect(() => {
@@ -19,25 +20,47 @@ function App(props) {
   return (
     <Fragment>
       <div className="container">
-        {props.authedUser === null ? (
-          
-          <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="*" element={<PageNotFound/>}/>
-          </Routes>
-          
-          </BrowserRouter>
-        ) : (
+        {!props.loggedOut && (
           <div>
             <BrowserRouter>
               <Routes>
-                <Route path="/" element={<Login />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/leaderboard" element={<Leaderboard />} />
-                <Route path="/newQuestion" element={<NewQuestion />} />
-                <Route path="/question/:id" element={<Question />} />
-                <Route path="*" element={<PageNotFound />} />
+                <Route path="/" exact element={<Login />} />
+                <Route
+                  path="/dashboard"
+                  exact
+                  element={
+                    <ProtectedRoute>
+                      <Dashboard />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/leaderboard"
+                  exact
+                  element={
+                    <ProtectedRoute>
+                      <Leaderboard />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/newQuestion"
+                  exact
+                  element={
+                    <ProtectedRoute>
+                      <NewQuestion />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/question/:id"
+                  element={
+                    <ProtectedRoute>
+                      <Question />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="*" exact element={<PageNotFound />} />
               </Routes>
             </BrowserRouter>
           </div>
@@ -48,8 +71,7 @@ function App(props) {
 }
 
 const mapStateToProps = ({ authedUser }) => ({
-  loading: authedUser === null,
-  authedUser
+  loggedOut: authedUser === null,
 });
 
 export default connect(mapStateToProps)(App);
